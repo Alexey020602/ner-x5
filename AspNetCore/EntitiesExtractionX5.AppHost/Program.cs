@@ -5,6 +5,6 @@ var builder = DistributedApplication.CreateBuilder(args);
 //     .WithRedisInsight()
 //     .WithLifetime(ContainerLifetime.Persistent);
 
-builder.AddProject<Projects.Api>("api")/*.WithReference(redis)*/;
+builder.AddProject<Projects.Api>("api");
 
 builder.Build().Run();

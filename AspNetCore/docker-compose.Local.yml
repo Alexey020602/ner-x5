@@ -2,7 +2,7 @@ services:
   api:
     build:
       context: ..
-      dockerfile: ./AspNetCore/Api/Dockerfile
+      dockerfile: ./AspNetCore/Dockerfile
     environment:
       ASPNETCORE_HTTP_PORTS: "5067"
       
@@ -13,6 +13,9 @@ services:
       OTEL_EXPORTER_OTLP_ENDPOINT: "http://docker-dashboard:18889"
       OTEL_EXPORTER_OTLP_PROTOCOL: "grpc"
       OTEL_SERVICE_NAME: "api"
+      
+      HuggingFace__ModelRepoName: ${HuggingFace__ModelRepoName}
+      HuggingFace__ModelRepoToken: ${HuggingFace__ModelRepoToken}
     ports:
       - "5067:5067"
     networks:

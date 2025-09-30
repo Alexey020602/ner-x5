@@ -1,52 +1,53 @@
 using System.Text.Json;
 using CSnakes.Runtime;
+using DotNetEnv;
+using DotNetEnv.Configuration;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
+if (builder.Environment.IsDevelopment())
+{
+    builder.Configuration.AddDotNetEnv("../../ML_Part/integration/.env", LoadOptions.TraversePath());
+}
 
 // builder.Services.AddLogging();
 builder.Logging.AddFilter("CSnakes", LogLevel.Information);
 builder.Services.AddOpenApi();
+
+var modelSection = builder.Configuration.GetSection("HuggingFace");
+var modelRepoName = modelSection.GetValue<string>("ModelRepoName") ?? throw new InvalidOperationException("Configuration must contain model repo name.");
+var modelRepoToken = modelSection.GetValue<string>("ModelRepoToken")  ?? throw new InvalidOperationException("Configuration must contain model repo token.");
+
 string home;
-string modelPath;
 
 if (builder.Environment.IsDevelopment())
 {
     home = Path.Join(
         builder.Environment.ContentRootPath,
         "..", "..", 
-        "ModelIntegration", 
-        "python");
-    
-    modelPath = Path.Join(
-        builder.Environment.ContentRootPath,
-        "..", "..", 
-        "ModelIntegration", 
-        "model");
+        "ML_PART", 
+        "integration");
 } 
 else
 {
     home = Path.Join(builder.Environment.ContentRootPath, "python");
-    modelPath = Path.Join(builder.Environment.ContentRootPath, "model");
 }
-// var home = Path.Join(builder.Environment.ContentRootPath, "python");
 var venv = Path.Join(home, "venv");
-// var modelPath = Path.Join(builder.Environment.ContentRootPath, "model");
 builder.Services.WithPython()
     .WithHome(home)
     .WithVirtualEnvironment(venv)
     .WithPipInstaller()
     .FromRedistributable("3.12")
-    // .FromFolder("/home/app/.config/CSnakes", "3.12")
     ;
 
 builder.Services.AddSingleton(sp => sp.GetRequiredService<IPythonEnvironment>().Model());
 
 builder.AddServiceDefaults();
 
-builder.Services.AddSingleton<JsonSerializerOptions>(new JsonSerializerOptions()
+builder.Services.ConfigureHttpJsonOptions(options =>
 {
-    DictionaryKeyPolicy = JsonNamingPolicy.SnakeCaseLower
+    options.SerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower;
+    options.SerializerOptions.PropertyNameCaseInsensitive = true;
 });
 
 var app = builder.Build();
@@ -59,10 +60,10 @@ using (var scope = app.Services.CreateScope())
     // logger.LogInformation("wwwroot path {WwwRoot}", app.Environment.WebRootPath);
     logger.LogInformation("current root path {CurrentRoot}", app.Environment.ContentRootPath);
     logger.LogInformation("venv path {Venv}", venv);
-    logger.LogInformation("model path {ModelPath}", modelPath);
+    logger.LogInformation("Model repo name {ModelPath}", modelRepoName);
     try
     {
-        scope.ServiceProvider.GetRequiredService<IModel>().Initialize(modelPath);
+        scope.ServiceProvider.GetRequiredService<IModel>().Initialize(modelRepoName, modelRepoToken);
     }
     catch (PythonInvocationException ex)
     {

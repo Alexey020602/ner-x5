@@ -12,8 +12,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionIt
 		docker-compose.Local.yml = docker-compose.Local.yml
 		.dockerignore = .dockerignore
 		.gitignore = .gitignore
-		EntitiesExtractionX5.sln.DotSettings.user = EntitiesExtractionX5.sln.DotSettings.user
 		.gitattributes = .gitattributes
+		Dockerfile = Dockerfile
+		docker-compose.yml = docker-compose.yml
 	EndProjectSection
 EndProject
 Global
