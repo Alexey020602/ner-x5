@@ -1,6 +1,6 @@
 services:
   aspnetcore-api:
-    image: ghcr.io/alexey020602/ner-x5-test/aspnetcore
+    image: ghcr.io/alexey020602/ner-x5/aspnetcore
     pull_policy: always
     environment:
       ASPNETCORE_HTTP_PORTS: "5067"

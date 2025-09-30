@@ -1,6 +1,6 @@
 services:
   fastapi:
-    image: ghcr.io/alexey020602/ner-x5-test/fastapi:latest
+    image: ghcr.io/alexey020602/ner-x5/fastapi:latest
     pull_policy: always
     ports:
       - "5067:8000"
