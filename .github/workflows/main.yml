@@ -17,6 +17,10 @@ on:
           - build-only
           - deploy-only
           - build-and-deploy
+      
+      model_repo_name:
+        type: string
+        description: 'Input model Hugging Face repository name'
 
 permissions:
   contents: read
@@ -62,6 +66,7 @@ jobs:
     uses: ./.github/workflows/deploy.yml
     with:
       application: fastapi
+      model_repo_name: ${{inputs.model_repo_name}}
     secrets: inherit
 
   aspnet-deploy:
@@ -70,4 +75,5 @@ jobs:
     uses: ./.github/workflows/deploy.yml
     with:
       application: AspNetCore
+      model_repo_name: ${{inputs.model_repo_name}}
     secrets: inherit
