@@ -1,0 +1,7 @@
+  services:
+    fastapi_app:
+      build:
+        context: ..
+        dockerfile: fastapi/Dockerfile # Path to your FastAPI application directory
+      ports:
+      - "5067:8000"

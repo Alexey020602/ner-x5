@@ -1,8 +1,6 @@
-    version: '3.8'
-    services:
-      fastapi_app:
-        build: 
-          context: .
-          dockerfile: DOCKERFILE # Path to your FastAPI application directory
-        ports:
-          - "8000:8000"
+services:
+  fastapi:
+    image: ghcr.io/alexey020602/ner-x5-test/fastapi:latest
+    pull_policy: always
+    ports:
+      - "5067:8000"
