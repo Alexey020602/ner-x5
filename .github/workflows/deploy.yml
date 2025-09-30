@@ -36,7 +36,7 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
           script: |
-            ${{ secrets.GHCR_PAT }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin \
+            echo "${{ secrets.GHCR_PAT }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin \
             && cd ~/Applications/ner-x5/${{ inputs.application }} \
             && touch .env \
             && echo HuggingFace__ModelRepoName=${{ inputs.model_repo_name }} >> .env \
