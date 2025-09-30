@@ -1,3 +1,0 @@
-spacy == 3.8
-pymorphy3 == 2.0.4
-logging

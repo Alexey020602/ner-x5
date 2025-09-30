@@ -10,6 +10,7 @@
 
     <ItemGroup>
         <PackageReference Include="CSnakes.Runtime" Version="1.2.1" />
+        <PackageReference Include="DotNetEnv" Version="3.1.1" />
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.9"/>
         <PackageReference Include="Microsoft.Extensions.Caching.Hybrid" Version="9.9.0" />
         <PackageReference Include="Microsoft.Extensions.ML" Version="4.0.2" />
@@ -23,28 +24,19 @@
     </ItemGroup>
     
     <ItemGroup>
-        <AdditionalFiles Include="..\..\ModelIntegration\python\model.py">
+        <AdditionalFiles Include="..\..\ML_PART\integration\model.py">
             <Link>python\model.py</Link>
             <SourceItemType>Python</SourceItemType>
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </AdditionalFiles>
-        <Content Include="..\..\ModelIntegration\python\requirements.txt">
+        <Content Include="..\..\ML_PART\integration\requirements.txt">
             <Link>python\requirements.txt</Link>
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
-<!--        <AdditionalFiles Remove="python\**" />-->
-<!--        <None Remove="python\**" />-->
     </ItemGroup>
 
-    <PropertyGroup>
-        <EnableDefaultContentItems>false</EnableDefaultContentItems>
-    </PropertyGroup>
-    
     <ItemGroup>
-        <Content Include="..\..\ModelIntegration\model\**">
-            <Link>model\%(RecursiveDir)%(FileName)%(Extension)</Link>
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </Content>
+        <Content Include="..\..\ML_PART\integration\.env" CopyToOutputDirectory="Always"/>
     </ItemGroup>
     
 
