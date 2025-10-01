@@ -18,20 +18,7 @@ var modelSection = builder.Configuration.GetSection("HuggingFace");
 var modelRepoName = modelSection.GetValue<string>("ModelRepoName") ?? throw new InvalidOperationException("Configuration must contain model repo name.");
 var modelRepoToken = modelSection.GetValue<string>("ModelRepoToken")  ?? throw new InvalidOperationException("Configuration must contain model repo token.");
 
-string home;
-
-if (builder.Environment.IsDevelopment())
-{
-    home = Path.Join(
-        builder.Environment.ContentRootPath,
-        "..", "..", 
-        "ML_PART", 
-        "integration");
-} 
-else
-{
-    home = Path.Join(builder.Environment.ContentRootPath, "python");
-}
+var home = Path.Join(builder.Environment.ContentRootPath, "python");
 var venv = Path.Join(home, "venv");
 builder.Services.WithPython()
     .WithHome(home)

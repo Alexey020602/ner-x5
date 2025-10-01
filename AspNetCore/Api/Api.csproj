@@ -24,13 +24,11 @@
     </ItemGroup>
     
     <ItemGroup>
-        <AdditionalFiles Include="..\..\ML_PART\integration\model.py">
-            <Link>python\model.py</Link>
+        <AdditionalFiles Include="python\model.py">
             <SourceItemType>Python</SourceItemType>
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </AdditionalFiles>
-        <Content Include="..\..\ML_PART\integration\requirements.txt">
-            <Link>python\requirements.txt</Link>
+        <Content Include="python\requirements.txt">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
     </ItemGroup>

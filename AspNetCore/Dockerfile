@@ -5,10 +5,9 @@ WORKDIR /app
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["AspNetCore/Api/Api.csproj", "Api/"]
+COPY ["Api/Api.csproj", "Api/"]
 RUN dotnet restore "Api/Api.csproj"
-COPY ML_PART/integration ../../ML_PART/integration
-COPY AspNetCore .
+COPY . .
 WORKDIR "/src/Api"
 RUN dotnet build "./Api.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
@@ -17,7 +16,7 @@ ARG BUILD_CONFIGURATION=Release
 RUN dotnet publish "./Api.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 RUN dotnet tool install --global CSnakes.Stage
 ENV PATH="/root/.dotnet/tools:${PATH}"
-RUN setup-python --python 3.12 --verbose --venv /app/venv --pip-requirements ../../python/requirements.txt 
+RUN setup-python --python 3.12 --verbose --venv /app/venv --pip-requirements /src/Api/python/requirements.txt 
 
 FROM base AS final
 WORKDIR /app
