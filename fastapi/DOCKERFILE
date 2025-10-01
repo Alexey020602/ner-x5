@@ -29,7 +29,7 @@
     ENV PYTHONPATH=/app
 
     COPY fastapi/pyproject.toml fastapi/uv.lock /app/
-    COPY ModelIntegration/model /app/app/model
+    
     COPY fastapi/app /app/app
 
     # Sync the project
