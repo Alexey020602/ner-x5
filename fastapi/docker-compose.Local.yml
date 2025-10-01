@@ -5,3 +5,6 @@
         dockerfile: fastapi/Dockerfile # Path to your FastAPI application directory
       ports:
       - "5067:8000"
+      environment:
+        HuggingFace__ModelRepoName: ${HuggingFace__ModelRepoName}
+        HuggingFace__ModelRepoToken: ${HuggingFace__ModelRepoToken}

@@ -5,8 +5,13 @@ description = ""
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
-    "aioredis>=2.0.1",
+    # Нужно для приложения
     "fastapi[standard]>=0.117.1",
+    "python-dotenv==1.1.1",
+
+    # Нужно для модели, заменить при изменении зависимостей у модели
     "pymorphy3>=2.0.4",
-    "spacy>=3.8.7",
+    "spacy == 3.8.7",
+    "pymorphy3 == 2.0.4",
+    "huggingface_hub==0.20.3",
 ]

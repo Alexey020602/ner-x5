@@ -4,3 +4,6 @@ services:
     pull_policy: always
     ports:
       - "5067:8000"
+    environment:
+        HuggingFace__ModelRepoName: ${HuggingFace__ModelRepoName}
+        HuggingFace__ModelRepoToken: ${HuggingFace__ModelRepoToken}
